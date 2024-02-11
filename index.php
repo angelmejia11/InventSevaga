@@ -126,6 +126,7 @@ if(isset($_POST['agregar_producto'])) {
     }
 }
 
+
 // Verificar si se envió el formulario para eliminar un producto
 if(isset($_POST['eliminar_producto'])) {
     $producto_id = $_POST['eliminar_producto_id'];
