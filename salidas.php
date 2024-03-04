@@ -8,16 +8,10 @@
 </head>
 <body>
 
-<nav>
-    <ul>
-        <li><a href="index.php#Inicio">Inicio</a></li>
-        <li><a href="salidas.php#Salidas">Salidas</a></li>
-        <li><a href="form.php">Agregar Producto</a></li>
-    </ul>
-</nav>
-
+<?php include 'nav.php'; ?>
 
 <h1>Salidas Registradas</h1>
+<img src="Sevaga.png" alt="Imagen de Inventario" style="width: 10%; margin: 20px auto; display: block;">
 <div id="Salidas">
 <table>
     <thead>

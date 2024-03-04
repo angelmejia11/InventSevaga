@@ -1,12 +1,6 @@
 <link rel="stylesheet" href="style.css">
 
-<nav>
-    <ul>
-        <li><a href="index.php#Inicio">Inicio</a></li>
-        <li><a href="salidas.php#Salidas">Salidas</a></li>
-        <li><a href="form.php#Agregar">Agregar Producto</a></li>
-    </ul>
-</nav>
+<?php include 'nav.php'; ?>
 
 <h1>Agregar Producto</h1>
 

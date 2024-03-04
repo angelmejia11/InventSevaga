@@ -8,13 +8,7 @@
 </head>
 <body>
 
-<nav>
-    <ul>
-        <li><a href="index.php#Inicio">Inicio</a></li>
-        <li><a href="salidas.php#Salidas">Salidas</a></li>
-        <li><a href="form.php">Agregar Producto</a></li>
-    </ul>
-</nav>
+<?php include 'nav.php'; ?>
 
 <h1>F E R T I L I Z A N T E S</h1>
 

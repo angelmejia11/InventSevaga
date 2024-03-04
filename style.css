@@ -73,13 +73,47 @@ td {
     background-color: #f9f9f9;
 }
 
-nav ul {
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333; /* Color de fondo de la barra de navegación */
+    z-index: 1000; /* Asegura que la barra de navegación esté por encima del contenido */
+}
+
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.menu ul li {
+    float: left;
+}
+
+.menu ul li a {
+    display: block;
+    padding: 20px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+
+.menu ul li a:hover {
+    background-color: #555; /* Cambio de color al pasar el mouse sobre los enlaces */
+}
+
+
+/*nav ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
     background-color: #4CAF50;
     overflow: hidden;
     border-radius: 8px;
+    
 }
 
 nav li {
@@ -96,4 +130,4 @@ nav li a {
 
 nav li a:hover {
     background-color: #45a049;
-}
+}*/
