@@ -6,13 +6,14 @@ if(isset($_POST['agregar_salida'])) {
     $producto_id = $_POST['producto_id'];
     $cantidad_salida = $_POST['cantidad_salida'];
     
-    // Obtener la cantidad actual del producto en la tabla inventariot
-    $sql_cantidad_actual = "SELECT cantidad FROM inventariot WHERE codigo = $producto_id";
-    $result_cantidad_actual = $conn->query($sql_cantidad_actual);
+    // Obtener la cantidad actual y el nombre del producto del producto en la tabla inventariot
+    $sql_producto = "SELECT cantidad, producto FROM inventariot WHERE codigo = $producto_id";
+    $result_producto = $conn->query($sql_producto);
     
-    if ($result_cantidad_actual->num_rows > 0) {
-        $row_cantidad_actual = $result_cantidad_actual->fetch_assoc();
-        $cantidad_actual = $row_cantidad_actual['cantidad'];
+    if ($result_producto->num_rows > 0) {
+        $row_producto = $result_producto->fetch_assoc();
+        $cantidad_actual = $row_producto['cantidad'];
+        $nombre_producto = $row_producto['producto']; // Se obtiene el nombre del producto
         
         // Verificar si hay suficiente cantidad disponible para la salida
         if ($cantidad_actual >= $cantidad_salida) {
@@ -28,8 +29,8 @@ if(isset($_POST['agregar_salida'])) {
                 $vale = $_POST['vale'];
                 $observaciones = $_POST['observaciones'];
                 
-                $sql_salida = "INSERT INTO salidas (producto_id, cantidad, unidad, fecha, area, vale, observaciones) 
-                                VALUES ('$producto_id', '$cantidad_salida', '$unidad', '$fecha', '$area', '$vale', '$observaciones')";
+                $sql_salida = "INSERT INTO salidas (producto_id, nombre_producto, cantidad, unidad, fecha, area, vale, observaciones) 
+                                VALUES ('$producto_id', '$nombre_producto', '$cantidad_salida', '$unidad', '$fecha', '$area', '$vale', '$observaciones')";
                 
                 if ($conn->query($sql_salida) === TRUE) {
                     // Mensaje de éxito
@@ -58,4 +59,3 @@ exit();
 
 $conn->close();
 ?>
-

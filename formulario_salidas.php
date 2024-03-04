@@ -20,46 +20,49 @@ if(isset($_POST['producto_id'])) {
     $producto_id = ""; // O cualquier otro valor predeterminado que desees
 }
 
+// Repite este proceso para todas las variables que estén generando los warnings
+?>
+
+<?php
 // Obtener el producto seleccionado de la base de datos
 if(!empty($producto_id)) {
     $sql = "SELECT * FROM inventariot WHERE codigo = $producto_id";
     $result = $conn->query($sql);
 
-    if ($result) {
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
 ?>
-            <form method="post" action="procesar_salida.php">
-                <input type="hidden" name="producto_id" value="<?php echo $row['codigo']; ?>">
-                <label for="producto">Producto:</label>
-                <input type="text" name="producto" value="<?php echo $row['producto']; ?>" readonly>
-                
-                <label for="cantidad">Cantidad disponible:</label>
-                <input type="text" name="cantidad" value="<?php echo $row['cantidad']; ?>" readonly>
-                
-                <label for="unidad">Unidad:</label>
-                <input type="text" name="unidad" value="<?php echo $row['unidad']; ?>" readonly>
-                
-                <label for="fecha">Fecha:</label>
-                <input type="date" name="fecha" required>
-                
-                <label for="area">Área:</label>
-                <input type="text" name="area" required>
-                
-                <label for="vale">Vale:</label>
-                <input type="text" name="vale" required>
-                
-                <label for="cantidad_salida">Cantidad de salida:</label>
-                <input type="number" name="cantidad_salida" required>
-                
-                <input type="submit" name="agregar_salida" value="Agregar Salida">
-            </form>
+    <form method="post" action="procesar_salida.php">
+        <input type="hidden" name="producto_id" value="<?php echo $row['codigo']; ?>">
+        <label for="producto">Producto:</label>
+        <input type="text" name="producto" value="<?php echo $row['producto']; ?>" readonly>
+        
+        <label for="cantidad">Cantidad disponible:</label>
+        <input type="text" name="cantidad" value="<?php echo $row['cantidad']; ?>" readonly>
+        
+        <label for="unidad">Unidad:</label>
+        <input type="text" name="unidad" value="<?php echo $row['unidad']; ?>" readonly>
+        
+        <label for="fecha">Fecha:</label>
+        <input type="date" name="fecha" required>
+        
+        <label for="area">Área:</label>
+        <input type="text" name="area" required>
+        
+        <label for="vale">Vale:</label>
+        <input type="text" name="vale" required>
+        
+        <label for="cantidad_salida">Cantidad de salida:</label>
+        <input type="number" name="cantidad_salida" required>
+        
+        <label for="observaciones">Observaciones:</label>
+        <textarea name="observaciones" required></textarea>
+        
+        <input type="submit" name="agregar_salida" value="Agregar Salida">
+    </form>
 <?php
-        } else {
-            echo "Producto no encontrado.";
-        }
     } else {
-        echo "Error al ejecutar la consulta: " . $conn->error;
+        echo "Producto no encontrado.";
     }
 } else {
     echo "No se ha seleccionado ningún producto.";
@@ -68,6 +71,7 @@ if(!empty($producto_id)) {
 
 </body>
 </html>
+
 
 
 

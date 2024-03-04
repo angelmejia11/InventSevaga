@@ -11,8 +11,7 @@
 <nav>
     <ul>
         <li><a href="index.php#Inicio">Inicio</a></li>
-        <li><a href="#entradas">Entradas</a></li>
-        <li><a href="procesar_salida.php#Salidas">Salidas</a></li>
+        <li><a href="salidas.php#Salidas">Salidas</a></li>
         <li><a href="form.php">Agregar Producto</a></li>
     </ul>
 </nav>
