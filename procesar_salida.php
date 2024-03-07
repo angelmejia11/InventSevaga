@@ -1,4 +1,6 @@
-
+<link rel="stylesheet" href="style.css">
+<div id="Salidas1">
+<?php include 'nav.php'; ?>
 <?php
 include 'conexion.php';
 

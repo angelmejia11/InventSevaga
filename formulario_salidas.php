@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<?php include 'nav.php'; ?>
 <h1>Salida de Producto</h1>
 
 <?php include 'conexion.php'; ?>
@@ -32,6 +32,7 @@ if(!empty($producto_id)) {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
 ?>
+
     <form method="post" action="procesar_salida.php">
         <input type="hidden" name="producto_id" value="<?php echo $row['codigo']; ?>">
         <label for="producto">Producto:</label>
@@ -52,11 +53,11 @@ if(!empty($producto_id)) {
         <label for="vale">Vale:</label>
         <input type="text" name="vale" required>
         
-        <label for="cantidad_salida">Cantidad de salida:</label>
-        <input type="number" name="cantidad_salida" required>
-        
         <label for="observaciones">Observaciones:</label>
         <textarea name="observaciones" required></textarea>
+
+        <label for="cantidad_salida">Cantidad de salida:</label>
+        <input type="number" name="cantidad_salida" required>
         
         <input type="submit" name="agregar_salida" value="Agregar Salida">
     </form>
