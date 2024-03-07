@@ -4,24 +4,17 @@
 
 <h1>Agregar Producto</h1>
 
-
-
 <div id="Agregar">
 
 <?php include 'conexion.php'; ?>
 
-
-
 <?php
 // Mensaje de éxito
 $mensaje_exito = "";
-// Verificar la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
 
 // Verificar si se envió el formulario para agregar un producto
 if(isset($_POST['agregar_producto'])) {
+    // Obtener los datos del formulario
     $producto = $_POST['producto'];
     $cantidad = $_POST['cantidad'];
     $unidad = $_POST['unidad'];
@@ -29,15 +22,25 @@ if(isset($_POST['agregar_producto'])) {
     $factura = $_POST['factura'];
     $observaciones = $_POST['observaciones'];
 
-    // Insertar el nuevo producto en la tabla de inventario
-    $sql = "INSERT INTO inventariot (producto, cantidad, unidad, fecha, factura, observaciones) VALUES ('$producto', $cantidad, '$unidad', '$fecha', '$factura', '$observaciones')";
+    // Insertar el nuevo producto en la tabla de entradas
+    $sql_insert_entradas = "INSERT INTO entradas (producto, cantidad, unidad, fecha, factura, observaciones)
+                   VALUES ('$producto', $cantidad, '$unidad', '$fecha', '$factura', '$observaciones')";
 
-    if ($conn->query($sql) === TRUE) {
-        // Actualizar el mensaje de éxito si la inserción fue exitosa
-        $mensaje_exito = "Producto agregado con éxito";
+    if ($conn->query($sql_insert_entradas) === TRUE) {
+        // Si la inserción en la tabla de entradas fue exitosa, inserta en la tabla de inventario
+        $sql_insert_inventario = "INSERT INTO inventariot (producto, cantidad, unidad, fecha, factura, observaciones)
+                                  VALUES ('$producto', $cantidad, '$unidad', '$fecha', '$factura', '$observaciones')";
+
+        if ($conn->query($sql_insert_inventario) === TRUE) {
+            // Actualizar el mensaje de éxito si la inserción en ambas tablas fue exitosa
+            $mensaje_exito = "Producto agregado con éxito en entradas y en inventario";
+        } else {
+            // Si hubo un error en la inserción en la tabla de inventario, muestra el error
+            echo "Error: " . $sql_insert_inventario . "<br>" . $conn->error;
+        }
     } else {
-        // Si hubo un error en la inserción, mostrar mensaje de error
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        // Si hubo un error en la inserción en la tabla de entradas, muestra el error
+        echo "Error: " . $sql_insert_entradas . "<br>" . $conn->error;
     }
 }
 
@@ -51,11 +54,7 @@ if ($mensaje_exito != "") {
 }else{
     echo "";
 }
-
-
 ?>
-
-
 
 <!-- Formulario para agregar un producto -->
 <form method="post">
@@ -79,10 +78,6 @@ if ($mensaje_exito != "") {
     
     <input type="submit" name="agregar_producto" value="Agregar Producto">
 </form>
-
-
-
-<script src="script.js"></script>
 
 <?php
 // Cerrar la conexión a la base de datos al final del script

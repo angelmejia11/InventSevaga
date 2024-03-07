@@ -6,7 +6,7 @@
             <a href="index.php#Inicio" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Inicio</a>
         </li>
         <li style="float: left;">
-            <a href="#entradas" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Entradas</a>
+            <a href="entradas.php#Entradas" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Entradas</a>
         </li>
         <li style="float: left;">
             <a href="salidas.php#Salidas" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Salidas</a>
