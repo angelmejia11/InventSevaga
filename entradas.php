@@ -25,8 +25,8 @@ $result_entradas = $conn->query($sql_entradas);
 <table>
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Producto ID</th>
+            <th>Código</th>
+            <th>Producto</th>
             <th>Cantidad</th>
             <th>Unidad</th>
             <th>Fecha</th>
@@ -51,7 +51,7 @@ $result_entradas = $conn->query($sql_entradas);
                       </tr>";
             }
         } else {
-            // Si no hay resultados, mostrar un mensaje indicando que no hay registros
+            
             echo "<tr><td colspan='7'>No hay registros de entradas</td></tr>";
         }
         ?>
