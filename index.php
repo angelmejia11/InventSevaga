@@ -15,6 +15,12 @@
 <img src="Sevaga.png" alt="Imagen de Inventario" style="width: 10%; margin: 20px auto; display: block;">
 
 <div id="Inicio">
+<form method="GET" id="searchForm">
+    <label for="search">Buscar producto:</label>
+    <input type="text" name="search" id="search" placeholder="Ingrese el nombre del producto">
+    <button type="submit">Buscar</button>
+    <button type="button" onclick="limpiarCampoBusqueda()">Limpiar Búsqueda</button>
+</form>
     <?php include 'conexion.php'; ?>
 
     <?php
@@ -56,7 +62,7 @@
 if(isset($_POST['eliminar_producto'])) {
     $producto_id = $_POST['eliminar_producto_id'];
     
-    // Eliminar los registros relacionados en la tabla salidas
+    
     $sql_eliminar_salidas = "DELETE FROM salidas WHERE producto_id = $producto_id";
 
     if ($conn->query($sql_eliminar_salidas) === TRUE) {
@@ -64,14 +70,14 @@ if(isset($_POST['eliminar_producto'])) {
         $sql_eliminar = "DELETE FROM inventariot WHERE codigo = $producto_id";
 
         if ($conn->query($sql_eliminar) === TRUE) {
-            // Actualizar el mensaje de éxito si la eliminación fue exitosa
+            
             $mensaje_exito = "Producto eliminado con éxito";
         } else {
-            // Si hubo un error en la eliminación, mostrar mensaje de error
+            
             echo "Error al eliminar el producto: " . $conn->error;
         }
     } else {
-        // Si hubo un error al eliminar los registros relacionados en la tabla salidas, mostrar mensaje de error
+        
         echo "Error al eliminar los registros relacionados en la tabla salidas: " . $conn->error;
     }
 }
@@ -84,6 +90,47 @@ if(isset($_POST['eliminar_producto'])) {
         echo "<p id='mensaje-exito' style='color: green; font-weight: bold;'>$mensaje_exito</p>";
     }
     ?>
+<?php
+// Verificar si se envió un término de búsqueda
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $search_term = $_GET['search'];
+    // Sanitizar la entrada del usuario
+    $search_term = mysqli_real_escape_string($conn, $search_term);
+    // Construir la consulta SQL para buscar por nombre de producto
+    $sql = "SELECT * FROM inventariot WHERE producto LIKE '%$search_term%'";
+} else {
+    // Si no se proporciona un término de búsqueda, mostrar un mensaje indicando que no se ha realizado ninguna búsqueda
+     echo "Por favor, ingresa un término de búsqueda para buscar un producto.";
+    
+    $sql = "";
+}
+
+// Ejecutar la consulta solo si $sql no está vacía
+if (!empty($sql)) {
+    // Ejecutar la consulta
+    $result = $conn->query($sql);
+
+    // Verificar si se encontraron resultados
+    if ($result->num_rows > 0) {
+        echo "<table>";
+        echo "<tr><th>Código</th><th>Producto</th><th>Cantidad</th><th>Unidad</th><th>Fecha</th><th>Factura</th><th>Observaciones</th></tr>";
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>{$row['codigo']}</td>";
+            echo "<td>{$row['producto']}</td>";
+            echo "<td>{$row['cantidad']}</td>";
+            echo "<td>{$row['unidad']}</td>";
+            echo "<td>{$row['fecha']}</td>";
+            echo "<td>{$row['factura']}</td>";
+            echo "<td>{$row['observaciones']}</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+    } else {
+        echo "No se encontraron resultados.";
+    }
+}
+?>
 
     <table>
         <tr>
@@ -109,12 +156,14 @@ if(isset($_POST['eliminar_producto'])) {
                     <td>
                         <form method='post'>
                             <input type='hidden' name='eliminar_producto_id' value='{$row['codigo']}'>
-                            <button type='submit' name='eliminar_producto' onclick='return confirm(\"¿Estás seguro de eliminar este producto?\")'>Eliminar</button>
+                            <button type='submit' name='eliminar_producto' onclick='return confirm
+                            (\"¿Estás seguro de eliminar este producto?\")'>Eliminar</button>
                         </form>
                         
-                        <form method='post' action='formulario_salidas.php'> <!-- Cambio aquí -->
+                        <form method='post' action='formulario_salidas.php'> 
                             <input type='hidden' name='producto_id' value='{$row['codigo']}'>
-                            <button type='submit' name='mover_a_salidas' style='margin-top: 5px;'>Salidas</button>
+                            <button type='submit' name='mover_a_salidas' style='margin-top: 5px;'>Salidas
+                            </button>
                         </form>
                     </td>
                 </tr>";
@@ -128,7 +177,7 @@ if(isset($_POST['eliminar_producto'])) {
 </html>
 
 <?php
-// Cerrar la conexión a la base de datos al final del script
+
 $conn->close();
 ?>
 

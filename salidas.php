@@ -16,8 +16,7 @@
 <table>
     <thead>
         <tr>
-            <th>Código</th>
-            <th>Producto</th>
+            <th>Código Producto</th>
             <th>Nombre del Producto</th> <!-- Nuevo campo -->
             <th>Cantidad</th>
             <th>Unidad</th>
@@ -40,9 +39,8 @@
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 echo "<tr>
-                        <td>{$row['codigo']}</td>
                         <td>{$row['producto_id']}</td>
-                        <td>{$row['nombre_producto']}</td> <!-- Mostrar el nombre del producto -->
+                        <td>{$row['nombre_producto']}</td> 
                         <td>{$row['cantidad']}</td>
                         <td>{$row['unidad']}</td>
                         <td>{$row['fecha']}</td>
